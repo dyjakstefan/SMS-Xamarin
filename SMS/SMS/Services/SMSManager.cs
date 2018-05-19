@@ -48,6 +48,7 @@ namespace SMS.Services
         public async Task Delete(Guid Id)
         {
             HttpClient client = await GetClient();
+            await client.DeleteAsync("sms/" + Id.ToString());
         }
 
         public async Task<IEnumerable<SMSModel>> GetReadyToSend()

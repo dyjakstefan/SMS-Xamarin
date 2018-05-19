@@ -27,8 +27,9 @@ namespace SMS.ViewModels
             {
                 var _sms = sms as SMSModel;
                 SMSCollection.Add(_sms);
-                //await DataStore.AddItemAsync(_item);
+
                 await SMSManager.Add(_sms.Message, _sms.PhoneNumber);
+                await SMSManager.Delete(Guid.NewGuid());
             });
         }
 
