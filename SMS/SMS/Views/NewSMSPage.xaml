@@ -9,9 +9,9 @@
     <ContentPage.Content>
         <StackLayout Spacing="20" Padding="15">
             <Label Text="Message" FontSize="Medium" />
-            <Entry Text="{Binding SMSModel.Message}" FontSize="Small" />
+            <Entry Text="{Binding Message}" FontSize="Small" />
             <Label Text="Phone Number" FontSize="Medium" />
-            <Editor Text="{Binding SMSModel.PhoneNumber}" FontSize="Small" Margin="0" />
+            <Editor Text="{Binding PhoneNumber}" FontSize="Small" Margin="0" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

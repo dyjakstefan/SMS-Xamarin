@@ -8,7 +8,8 @@ using Xamarin.Forms;
 
 namespace SMS
 {
-	public partial class App : Application
+    
+    public partial class App : Application
 	{
         public IManager SMSManager => DependencyService.Get<IManager>() ?? new SMSManager();
 
@@ -18,24 +19,34 @@ namespace SMS
 			InitializeComponent();
 
             MainPage = new MainPage();
-
+            
             
         }
 
 		protected override void OnStart ()
 		{
+            
             Task.Run(async () =>
             {
+                
                 while (true)
                 {
                     await Task.Delay(10000);
                     var smsList = await SMSManager.GetReadyToSend();
                     foreach (var s in smsList)
                     {
+                        
                         var smsMessenger = CrossMessaging.Current.SmsMessenger;
-                        if (smsMessenger.CanSendSms)
+                        if (smsMessenger.CanSendSmsInBackground)
                         {
-                            smsMessenger.SendSms(s.PhoneNumber, s.Message);
+                            try
+                            {
+                                smsMessenger.SendSmsInBackground(s.PhoneNumber, s.Message);
+                            }
+                            catch(Exception ex)
+                            {
+                                Debug.WriteLine(ex.Message);
+                            }
                             await SMSManager.Delete(s.Id);
                         }
                         else
