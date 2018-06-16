@@ -9,18 +9,31 @@ using SMS.Models;
 
 namespace SMS.Services
 {
+    /// <summary>
+    /// Class for managing data flow with web API.
+    /// </summary>
     public class SMSManager : IManager
     {
+        /// <summary>
+        /// Method for getting Http Client.
+        /// </summary>
+        /// <returns>Http Client.</returns>
         private async Task<HttpClient> GetClient()
         {
             HttpClient client = new HttpClient();
 
             client.DefaultRequestHeaders.Add("Authorization", "No Auth");
             client.DefaultRequestHeaders.Add("Accept", "application/json");
-            client.BaseAddress = new Uri("http://192.168.0.101:56584/api/");
+            client.BaseAddress = new Uri("http://192.168.0.102:45455/api/");
             return client;
         }
 
+        /// <summary>
+        /// Add new sms to web API. Using POST request.
+        /// </summary>
+        /// <param name="message">Sms message.</param>
+        /// <param name="phoneNumber">Recipient's phone number.</param>
+        /// <returns>New sms.</returns>
         public async Task<SMSModel> Add(string message, string phoneNumber)
         {
             HttpClient client = await GetClient();
@@ -45,13 +58,22 @@ namespace SMS.Services
             return new SMSModel() { Id = Guid.NewGuid(), Message = "asds", PhoneNumber = "34" };
         }
 
+        /// <summary>
+        /// Delete specific sms from web API.
+        /// </summary>
+        /// <param name="Id">Id of sms.</param>
+        /// <returns></returns>
         public async Task Delete(Guid Id)
         {
             HttpClient client = await GetClient();
             await client.DeleteAsync("sms/" + Id.ToString());
         }
 
-        public async Task<IEnumerable<SMSModel>> GetReadyToSend()
+        /// <summary>
+        /// Get all sms from web API.
+        /// </summary>
+        /// <returns>Collection of sms's</returns>
+        public async Task<IEnumerable<SMSModel>> GetAll()
         {
             HttpClient client = await GetClient();
 

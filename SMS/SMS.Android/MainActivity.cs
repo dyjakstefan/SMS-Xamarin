@@ -15,10 +15,16 @@ using System.Threading.Tasks;
 
 namespace SMS.Droid
 {
+    /// <summary>
+    /// Main class for Android application.
+    /// </summary>
     [Activity(Label = "SMS", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-
+        /// <summary>
+        /// This method is called when application starts.
+        /// </summary>
+        /// <param name="bundle"></param>
         protected async override void OnCreate(Bundle bundle)
         {
             await TryToGetPermissions();
@@ -33,7 +39,10 @@ namespace SMS.Droid
         }
 
         #region RuntimePermissions
-
+        /// <summary>
+        /// Checking if permissions is needed.
+        /// </summary>
+        /// <returns></returns>
         async Task TryToGetPermissions()
         {
             if ((int)Build.VERSION.SdkInt >= 23)
@@ -46,26 +55,31 @@ namespace SMS.Droid
         }
         const int RequestSmsId = 0;
 
+        /// <summary>
+        /// Needed permissions for this application.
+        /// </summary>
         readonly string[] PermissionsGroupSms =
             {
                 Manifest.Permission.SendSms,
                 Manifest.Permission.ReadPhoneState,
              };
 
+        /// <summary>
+        /// This method asks for permissions.
+        /// </summary>
+        /// <returns></returns>
         async Task GetPermissionsAsync()
         {
             const string permission = Manifest.Permission.SendSms;
 
             if (CheckSelfPermission(permission) == (int)Android.Content.PM.Permission.Granted)
             {
-                //TODO change the message to show the permissions name
                 Toast.MakeText(this, "Special permissions granted", ToastLength.Short).Show();
                 return;
             }
 
             if (ShouldShowRequestPermissionRationale(permission))
             {
-                //set alert for executing the task
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.SetTitle("Permissions Needed");
                 alert.SetMessage("The application need special permissions to continue");
@@ -89,6 +103,13 @@ namespace SMS.Droid
             RequestPermissions(PermissionsGroupSms, RequestSmsId);
 
         }
+
+        /// <summary>
+        /// This method checks that if permissions have been granted by user.
+        /// </summary>
+        /// <param name="requestCode"></param>
+        /// <param name="permissions"></param>
+        /// <param name="grantResults"></param>
         public override async void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             switch (requestCode)

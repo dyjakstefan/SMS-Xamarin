@@ -11,12 +11,20 @@ using Xamarin.Forms;
 
 namespace SMS.ViewModels
 {
+    /// <summary>
+    /// View model for page with sms list.
+    /// </summary>
     public class SMSViewModel : BaseViewModel
     { 
+        /// <summary>
+        /// Collection of sms.
+        /// </summary>
         public ObservableCollection<SMSModel> SMSCollection { get; set; }
         public Command LoadSMSCommand { get; set; }
         
-
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public SMSViewModel()
         {
             Title = "SMS";
@@ -33,6 +41,10 @@ namespace SMS.ViewModels
             });
         }
 
+        /// <summary>
+        /// This method execute command that loads sms list.
+        /// </summary>
+        /// <returns></returns>
         async Task ExecuteLoadSMSCommand()
         {
             if (IsBusy)
@@ -43,7 +55,7 @@ namespace SMS.ViewModels
             try
             {
                 SMSCollection.Clear();
-                var smsList = await SMSManager.GetReadyToSend();
+                var smsList = await SMSManager.GetAll();
                 foreach (var s in smsList)
                 {
                     SMSCollection.Add(s);

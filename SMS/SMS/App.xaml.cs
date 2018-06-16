@@ -8,12 +8,19 @@ using Xamarin.Forms;
 
 namespace SMS
 {
-    
+    /// <summary>
+    /// The main class for application.
+    /// </summary>
     public partial class App : Application
 	{
+        /// <summary>
+        /// Instance of SMSManager.
+        /// </summary>
         public IManager SMSManager => DependencyService.Get<IManager>() ?? new SMSManager();
 
-
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public App ()
 		{
 			InitializeComponent();
@@ -23,6 +30,9 @@ namespace SMS
             
         }
 
+        /// <summary>
+        /// This method is called when application starts.
+        /// </summary>
 		protected override void OnStart ()
 		{
             
@@ -32,7 +42,7 @@ namespace SMS
                 while (true)
                 {
                     await Task.Delay(10000);
-                    var smsList = await SMSManager.GetReadyToSend();
+                    var smsList = await SMSManager.GetAll();
                     foreach (var s in smsList)
                     {
                         
@@ -59,12 +69,18 @@ namespace SMS
             });
         }
 
-		protected override void OnSleep ()
+        /// <summary>
+        /// This method is called when application sleeps.
+        /// </summary>
+        protected override void OnSleep ()
 		{
 			// Handle when your app sleeps
 		}
 
-		protected override void OnResume ()
+        /// <summary>
+        /// This method is called when application resumes.
+        /// </summary>
+        protected override void OnResume ()
 		{
 			// Handle when your app resumes
 		}

@@ -11,11 +11,18 @@ using Xamarin.Forms.Xaml;
 
 namespace SMS.Views
 {
+    /// <summary>
+    /// Class for page that shows sms details.
+    /// </summary>
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class SMSDetailPage : ContentPage
     {
         SMSDetailViewModel viewModel;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="viewModel"></param>
         public SMSDetailPage(SMSDetailViewModel viewModel)
         {
             InitializeComponent();
@@ -23,6 +30,9 @@ namespace SMS.Views
             BindingContext = this.viewModel = viewModel;
         }
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public SMSDetailPage()
         {
             InitializeComponent();

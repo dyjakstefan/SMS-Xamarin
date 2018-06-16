@@ -10,12 +10,21 @@ using SMS.Services;
 
 namespace SMS.ViewModels
 {
+    /// <summary>
+    /// Base view model. Other view models inherit from this class.
+    /// </summary>
     public class BaseViewModel : INotifyPropertyChanged
     {
-        //public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>() ?? new MockDataStore();
+        /// <summary>
+        /// Instance of SMSManager.
+        /// </summary>
         public IManager SMSManager => DependencyService.Get<IManager>() ?? new SMSManager();
 
+
         bool isBusy = false;
+        /// <summary>
+        /// Property that tells if the element is busy.
+        /// </summary>
         public bool IsBusy
         {
             get { return isBusy; }
@@ -23,12 +32,24 @@ namespace SMS.ViewModels
         }
 
         string title = string.Empty;
+        /// <summary>
+        /// Title.
+        /// </summary>
         public string Title
         {
             get { return title; }
             set { SetProperty(ref title, value); }
         }
 
+        /// <summary>
+        /// This method set value of T property.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="backingStore">field</param>
+        /// <param name="value">new value</param>
+        /// <param name="propertyName"></param>
+        /// <param name="onChanged"></param>
+        /// <returns></returns>
         protected bool SetProperty<T>(ref T backingStore, T value,
             [CallerMemberName]string propertyName = "",
             Action onChanged = null)
@@ -44,6 +65,11 @@ namespace SMS.ViewModels
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// This method is called when property is changing.
+        /// </summary>
+        /// <param name="propertyName"></param>
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             var changed = PropertyChanged;
