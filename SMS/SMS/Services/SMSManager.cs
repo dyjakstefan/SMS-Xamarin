@@ -24,7 +24,7 @@ namespace SMS.Services
 
             client.DefaultRequestHeaders.Add("Authorization", "No Auth");
             client.DefaultRequestHeaders.Add("Accept", "application/json");
-            client.BaseAddress = new Uri("http://192.168.0.102:45455/api/");
+            client.BaseAddress = new Uri("http://192.168.0.105:45455/api/");
             return client;
         }
 
