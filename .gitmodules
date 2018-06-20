@@ -1,0 +1,3 @@
+[submodule "SMS-API"]
+	path = SMS-API
+	url = https://github.com/dyjakstefan/SMS-API
